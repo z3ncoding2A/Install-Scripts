@@ -1,0 +1,5 @@
+launch apps with sudo 
+
+sudo pacman -S xorg-xhost 
+xhost +SI:localuser:root
+
