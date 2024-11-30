@@ -1,0 +1,14 @@
+
+
+git clone https://github.com/FR1NG/Hyprland.git 
+
+JaKooLit Scripts - 
+1: git clone https://github.com/JaKooLit/Arch-Hyprland.git 
+2: git clone https://github.com/JaKooLit/Hyprland-Dots.git 
+
+git clone --depth 1 https://github.com/prasanthrangan/hyprdots.git
+
+git clone https://github.com/ChrisTitusTech/ArchTitus.git
+
+bash <(curl -L christitus.com/archtitus)
+
