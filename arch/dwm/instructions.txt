@@ -1,0 +1,36 @@
+run autoapp.sh file
+
+mkdir Builds
+
+git clone https://git.suckless.org/dwm
+
+git clone https://git.suckless.org/st
+
+type: sudo make clean install
+
+type: sudo chown -R mench:mench -/Builds
+
+you don't need sudo anymore
+
+copy my config.h file into the dwm folder 
+
+copy my config.h file into the st folder
+
+make clean install
+
+copy .xinitrc file
+
+patches installed are as follows:
+
+Autostart for dwm  https://dwm.suckless.org/patches/autostart/dwm-autostart-20210120-cb3f58a.diff
+
+Status all monitors for dwm  https://dwm.suckless.org/patches/statusallmons/dwm-statusallmons-6.2.diff
+
+scroll back for st terminal  https://st.suckless.org/patches/scrollback/st-scrollback-0.8.5.diff
+ 
+test patch go into dwm package folder and type: patch --dry-run < folderwithpatch/nameofpatch.diff
+
+install patch go into the dwm or st  package folder and type: patch -p1 < folderwithpatch/nameofpatch.diff
+
+Good luck!
+

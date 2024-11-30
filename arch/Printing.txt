@@ -1,0 +1,12 @@
+
+
+
+To print in Arch or Arch based systems, run the following 3 commands:
+
+sudo pacman -S cups system-config-printer hplip ghostscript cups-filters cups-pdf cups-pk-helper print-manager
+
+sudo systemctl start cups.service
+
+sudo systemctl enable cups.service
+
+

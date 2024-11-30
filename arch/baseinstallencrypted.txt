@@ -1,0 +1,128 @@
+Guidelines for installing Arch Linux WITH  Encryption the manual way
+
+
+If you have never done this before, you should watch one of my Arch Base Install Videos before trying this and 
+it would be wise to try it on an extra computer or a vitural machine.
+
+You need to know how to use Vim or Nano
+
+Optional, to make tty font larger:  setfont ter-128b or ter-132b
+
+timedatectl set-ntp true
+
+curl -o /etc/pacman.d/mirrorlist https://archlinux.org/mirrorlist/all/
+
+vim /etc/pacman.d/mirrorlist  (select a few mirrors from your country)
+
+pacman -Syy
+
+vim /etc/pacman.conf    (uncomment verbose & parallel downloads)
+
+cfdisk   delete partitions until the disk is all free space   
+
+make boot partition 200M, make main partition for the rest of your drive should be G, example: 500G
+
+lsblk   to see what your drives are called
+
+cryptsetup -y -v luksFormat /dev/sda2
+
+cryptsetup open /dev/sda2 me   (drive doesn't have to be called me. You can use any name)
+
+mkfs.ext4 /dev/mapper/me
+
+mkfs.ext4 /dev/sda1
+
+lsblk
+
+mount /dev/mapper/me /mnt
+
+mkdir /mnt/boot
+
+mount /dev/sda1 /mnt/boot
+
+lsblk    just to see your drives are okay
+
+if you want the long the term support kernel, type linux-lts instead of linux in the line below
+
+pacstrap /mnt base base-devel linux linux-firmware linux-headers vim git terminus-font
+ 
+genfstab -U /mnt >> /mnt/etc/fstab
+
+arch-chroot /mnt
+
+to find out your zone info type:   ls /usr/share/zoneinfo
+                                   ls /usr/share/zoneinfo/Canada
+                                   ls /usr/share/zoneinfo/Canada/Eastern
+
+ln -sf /usr/share/zoneinfo/Canada/Eastern /etc/localtime
+
+YOU CAN DO THE ABOVE INSTEAD OF THE LINE BELOW
+
+ln -sf /usr/share/zoneinfo/Region/City /etc/localtime
+
+vim /etc/locale.gen
+
+locale-gen
+
+vim /etc/locale.conf
+
+LANG=en_CA.UTF-8     make sure you use the correct one for you
+
+vim /etc/hostname    give your computer a host name
+
+passwd root          give root a password
+
+pacman -S networkmanager grub 
+
+systemctl enable NetworkManager     make sure the N and M are capitalized
+
+grub-install /dev/sda
+
+grub-mkconfig -o /boot/grub/grub.cfg
+
+vim /etc/mkinitcpio.conf
+
+go to hooks line and between the words block and filesystems insert the word encrypt and save the file
+
+mkinitcpio -P
+
+blkid    you can copy the sda2 UUID number and type it in the grub file or follow the command below
+
+blkid | tee -a uuid
+
+vim in to the file and yy the sda2 line
+
+vim /etc/default/grub
+
+go to GRUB_CMDLINE_LINUX=
+
+and paste the line in, you will have to delete some stuff that was pasted in.
+
+it should look like this with a different uuid number and a different name for your encrypted drive
+
+if this line below is not correct, you won't be able to boot in to the system
+
+GRUB_CMDLINE_LINUX="cryptdevice=UUID=afedb6e0-c57c-407a-9561-96ceeb2b2c33:cryptme me=/dev/mapper/me"
+
+grub-mkconfig -o /boot/grub/grub.cfg
+
+exit
+
+umount -R /mnt
+
+reboot
+
+Remember at this point you only have a root account with a password. You have to make a user with a password and sudo rights. 
+You also have to install a Desktop or Window Manager with your favourite apps. See my post install videos or my post install
+written instructions
+
+
+to change encryption password:   cryptsetup luksChangeKey /dev/sda2
+
+to test new password:            cryptsetup --verbose open --test-passphrase /dev/sda2
+
+Good Luck!
+
+THE END
+
+

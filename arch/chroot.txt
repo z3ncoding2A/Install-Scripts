@@ -1,0 +1,13 @@
+
+To chroot into a encrypted hard drive
+
+lsblk -f
+
+cryptsetup open --type luks /dev/sda2 crypto_LUKS
+mount /dev/mapper/crypto_LUKS /mnt
+mount /dev/sda1 /mnt/boot
+arch-chroot /mnt
+
+
+
+
