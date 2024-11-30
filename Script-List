@@ -12,3 +12,21 @@ git clone https://github.com/ChrisTitusTech/ArchTitus.git
 
 bash <(curl -L christitus.com/archtitus)
 
+ML4W Hyprland Starter Package
+https://gitlab.com/stephan-raabe/hyprland-starter
+Tutorial > https://youtu.be/7CbOCfSY-sA
+
+Includes:
+Window Manager: hyprland
+Status Bar: waybar
+Launcher: rofi-wayland
+Terminal: alacritty
+Terminal: kitty #optional
+Notification Service: dunst
+File Manager: dolphin
+xdg-desktop-portal-hyprland
+qt5-wayland
+qt6-wayland
+Wallpaper: hyprpaper
+Lock screen: hyprlock
+Icons: ttf-font-awesome
